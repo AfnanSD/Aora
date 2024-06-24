@@ -14,7 +14,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "package":"com.tmp.aora"
+      "package":"com.tmp.aora",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
