@@ -30,7 +30,7 @@ const TabsLayout = () => {
             backgroundColor: '#161622',
             borderTopWidth: 1,
             borderTopColor: '#232533',
-            height: 84,
+            height: 94,
           }
         }}
       >
@@ -48,7 +48,7 @@ const TabsLayout = () => {
             )
           }
         } />
-        <Tabs.Screen name='bookmark' options={
+        {/* <Tabs.Screen name='bookmark' options={
           {
             title: "BookMark",
             "headerShown": false,
@@ -61,7 +61,7 @@ const TabsLayout = () => {
               />
             )
           }
-        } />
+        } /> */}
         <Tabs.Screen name='create' options={
           {
             title: "Create",
