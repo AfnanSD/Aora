@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View, ScrollView, Image,Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Link } from "expo-router";
+import { Link ,router} from "expo-router";
+
 
 import { images } from "../../constants";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/customButton'
-import { signIn } from '../../lib/appwrite';
+import { signIn, getCurrentUser } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider'
+
 
 const SignIn = () => {
   const [form, setform] = useState({
@@ -14,6 +17,8 @@ const SignIn = () => {
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { setUser, setIsLogged } = useGlobalContext();
+
   
   const submit = async () => {
     if ( !form.email || !form.password) {
@@ -24,9 +29,11 @@ const SignIn = () => {
 
     try {
        await signIn(form.email, form.password);
+       const result = await getCurrentUser();
+       setUser(result);
+       setIsLogged(true);
 
-      //set it to global state later on ?
-
+      // Alert.alert("Success", "User signed in successfully");
       router.replace('/home');
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -34,7 +41,7 @@ const SignIn = () => {
       setIsSubmitting(false);
     }
 
-    createUser();
+    // createUser();
   }
 
   return (

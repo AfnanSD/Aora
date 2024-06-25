@@ -5,14 +5,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
 import CustomButton from '../components/customButton';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { signIn, signOut,getCurrentUser } from '../lib/appwrite';
 
 import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function App() {
 
-const {isLoading, isLogginIn} = useGlobalContext();
+    const { isLoading, isLogginIn } = useGlobalContext();
 
-if(!isLoading && !isLogginIn) return <Redirect href={"/home"}/>
+    if (!isLoading && isLogginIn) {
+        return <Redirect href={"/home"} />
+    }
+
 
     return (
         <SafeAreaView className="bg-primary h-full">
@@ -42,16 +46,18 @@ if(!isLoading && !isLogginIn) return <Redirect href={"/home"}/>
 
                     <Text className="text-sm text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journy of limitless exploration with Aora</Text>
 
-                    <CustomButton 
-                    title="Continue with Email"
-                    handlePress={()=>router.push('/sign-in')}
-                    containerStyle="w-full mt-7"
+                    <CustomButton
+                        title="Continue with Email"
+                        handlePress={() =>  
+                            // signOut() }
+                            router.push('/sign-in')}
+                        containerStyle="w-full mt-7"
                     />
 
                 </View>
             </ScrollView>
 
-            <StatusBar backgroundColor='#161622'  style='light'/>
+            <StatusBar backgroundColor='#161622' style='light' />
         </SafeAreaView>
     );
 }
