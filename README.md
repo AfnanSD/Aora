@@ -15,7 +15,7 @@ __Aora__ is the app for you
 - __Expo__: for streamlined development process, and for its wide range of pre-built libraries <br/>
 - __Appwrite__: for the backend, using its Authentication, Databases, Storage <br/>
 - __Nativewind__: for its universal style system <br/>
-- __Animatable__: for its animation capeplaites <br/>
+- __Animatable__: for its animation capabilities <br/>
 
 ## Quick Glance
 ![Purple Pink Gradient Mobile Application Presentation](https://github.com/AfnanSD/Aora/assets/99503463/cc9c790d-ea5d-4a1f-a9d7-ffe426115169)
