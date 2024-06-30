@@ -1,7 +1,6 @@
-import { View, Text, FlatList, Image, RefreshControl, Alert } from 'react-native'
+import { View, Text, FlatList, Image, RefreshControl, Alert ,TouchableOpacity} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 
 import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
@@ -19,7 +18,7 @@ const Home = () => {
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false)
-  const { user} = useGlobalContext();
+  const { user } = useGlobalContext();
 
 
   const onRefresh = async () => {
