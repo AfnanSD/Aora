@@ -11,8 +11,8 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
   async () => {
     try {
-      const response = await getCurrentUser(); // Assuming getCurrentUser is an async function fetching user data
-      return response; // Assuming response contains user data
+      const response = await getCurrentUser();
+      return response; 
     } catch (error) {
       console.error('Error fetching current user:', error);
       throw error;
@@ -40,14 +40,22 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isLogged = true; // Example assuming user is logged in after fetching user data
-        state.user = action.payload; // Example setting user data from response
+
+        if (action.payload.username) { //user is logged in
+          state.loading = false;
+          state.isLogged = true; 
+          state.user = action.payload; 
+
+        } else {
+          state.loading = false;
+          state.isLogged = false; 
+          state.user = null; 
+        }
       })
       .addCase(fetchCurrentUser.rejected, (state) => {
         state.loading = false;
-        state.isLogged = false; // Example setting logged out state on fetch error
-        state.user = null; // Example clearing user data on fetch error
+        state.isLogged = false; 
+        state.user = null; 
       });
   },
 });
@@ -55,32 +63,3 @@ const authSlice = createSlice({
 export const { setIsLogged, setUser, setLoading } = authSlice.actions;
 
 export default authSlice.reducer;
-
-// -- was working without fetchuser function
-// import { createSlice } from '@reduxjs/toolkit';
-
-// const initialState = {
-//   isLogged: false,
-//   user: null,
-//   loading: false,
-// };
-
-// const authSlice = createSlice({
-//   name: 'auth',
-//   initialState,
-//   reducers: {
-//     setIsLogged: (state, action) => {
-//       state.isLogged = action.payload;
-//     },
-//     setUser: (state, action) => {
-//       state.user = action.payload;
-//     },
-//     setLoading: (state, action) => {
-//       state.loading = action.payload;
-//     },
-//   },
-// });
-
-// export const { setIsLogged, setUser, setLoading } = authSlice.actions;
-
-// export default authSlice.reducer;

@@ -1,42 +1,30 @@
 import { Redirect, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
 import CustomButton from '../components/customButton';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { signIn, signOut, getCurrentUser } from '../lib/appwrite';
-import { Provider } from "react-redux";
 import React, { useEffect } from "react";
 
-// import store from '../context/store'
-// import { useGlobalContext } from "../context/GlobalProvider";
-// import Counter from '../components/Counter';
+import {  signOut } from '../lib/appwrite';
+
 import { useSelector, useDispatch } from 'react-redux';
-// import { fetchCurrentUser } from '../context/actions'; --was working
-import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../context/authSlice'; // Adjust the path as per your project structure
+import { fetchCurrentUser } from '../context/authSlice'; 
 
 
 export default function App() {
 
-    //for learning redux
-    // return (
-    // <Provider store={store}>
-    //     <Counter />
-    // </Provider>)
-
-    //original
-    // const { isLoading, isLogged } = useGlobalContext(); #old
-
-    // if (!isLoading && isLogged) { #old
 
     //new
     const dispatch = useDispatch();
-    const { isLogged, loading } = useSelector((state) => state);
+    const { isLogged, loading } = useSelector((state) => state.auth);
+
 
     useEffect(() => {
         dispatch(fetchCurrentUser());
     }, [dispatch]);
+
+
 
     if (!loading && isLogged) {
         return <Redirect href={"/home"} />

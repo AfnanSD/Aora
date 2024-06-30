@@ -2,7 +2,6 @@ import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-na
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Video, ResizeMode } from "expo-av";
-// import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 
@@ -10,19 +9,12 @@ import FormField from '../../components/FormField'
 import CustomButton from "../../components/customButton";
 import { icons } from "../../constants";
 import { createVideo } from "../../lib/appwrite";
-// import { useGlobalContext } from '../../context/GlobalProvider';
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
-
 
 
 const Create = () => {
 
-  // const { user } = useGlobalContext();
-  // const { user } = useSelector((state) => state);
-
-  const dispatch = useDispatch();
-  const { isLogged, user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   
   const [form, setForm] = useState({
     title: '',
@@ -39,8 +31,6 @@ const Create = () => {
     setUploading(true);
 
     try {
-// console.log(user);
-// console.log(user.$id);
       createVideo({ ...form, userId: user.$id });
 
       Alert.alert('Success', 'Post uploaded successfully')

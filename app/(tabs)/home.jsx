@@ -9,8 +9,6 @@ import EmptyState from '../../components/EmptyState'
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
-// import { useGlobalContext } from '../../context/GlobalProvider'
-import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
 import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
@@ -19,10 +17,7 @@ const Home = () => {
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false)
-  // const { user } = useGlobalContext();
-  // const { user } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const { isLogged, user, loading } = useSelector((state) => state.auth);
+  const {  user } = useSelector((state) => state.auth);
 
   const onRefresh = async () => {
     setRefreshing(true);

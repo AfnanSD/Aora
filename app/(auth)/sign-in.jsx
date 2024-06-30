@@ -8,9 +8,8 @@ import { images } from "../../constants";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/customButton'
 import { signIn, getCurrentUser } from '../../lib/appwrite';
-import { useSelector, useDispatch } from 'react-redux';
-// import { setIsLogged,setUser } from "../../context/actions";
-import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
+import { useDispatch } from 'react-redux';
+import { setIsLogged, setUser } from '../../context/authSlice';
 
 
 
@@ -22,7 +21,6 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const dispatch = useDispatch();
-  const { isLogged, user, loading } = useSelector((state) => state.auth);
 
 
 
@@ -36,10 +34,6 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
       const result = await getCurrentUser();
-      //  setUser(result);
-      //  setIsLogged(true);
-      // dispatch(setUser(result));
-      // dispatch(setIsLogged(true));
       dispatch(setUser(result));
       dispatch(setIsLogged(true));
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, Alert } from 'react-native'
+import {  Text, View, ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link, router } from "expo-router";
@@ -6,9 +6,8 @@ import { Link, router } from "expo-router";
 import { images } from "../../constants";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/customButton'
-import { useSelector, useDispatch } from 'react-redux';
-// import { setIsLogged,setUser } from "../../context/actions";
-import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
+import { useDispatch } from 'react-redux';
+import { setIsLogged, setUser } from '../../context/authSlice'; 
 
 
 
@@ -21,11 +20,9 @@ const SignUp = () => {
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // const {  setUser, setIsLogged } = useGlobalContext();
-  // const dispatch = useDispatch();
-  // const { isLogged, loading,user } = useSelector((state) => state);
+
   const dispatch = useDispatch();
-  const { isLogged, user, loading } = useSelector((state) => state.auth);
+
 
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
@@ -36,10 +33,7 @@ const SignUp = () => {
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      // setUser(result);
-      // setIsLogged(true);
-      // dispatch(setUser(result));
-      // dispatch(setIsLogged(true));
+
       dispatch(setUser(result));
       dispatch(setIsLogged(true));
       

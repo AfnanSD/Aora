@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { Slot, SplashScreen, Stack } from 'expo-router'
 import { useFonts } from 'expo-font';
 
-// import GlobalProvider from "../context/GlobalProvider";
-// import { Provider } from 'react-redux';
 import { Provider } from "react-redux";
 
 import store from '../context/store';
@@ -36,19 +34,16 @@ const RootLayout = () => {
     }
 
     return (
-        // <GlobalProvider> dead onld code 
-        //TODO: remove it
-        // <Provider store={store}>
-            <Provider store={store}>
+
+        <Provider store={store}>
             <Stack>
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
             </Stack>
-            </Provider>
-        /* </Provider> */
-        // </GlobalProvider>
+        </Provider>
+
     )
 
     // (
