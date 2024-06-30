@@ -7,67 +7,82 @@ import CustomButton from '../components/customButton';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { signIn, signOut, getCurrentUser } from '../lib/appwrite';
 import { Provider } from "react-redux";
+import React, { useEffect } from "react";
 
-import store from '../context/store'
-import { useGlobalContext } from "../context/GlobalProvider";
-import Counter from '../components/Counter';
+// import store from '../context/store'
+// import { useGlobalContext } from "../context/GlobalProvider";
+// import Counter from '../components/Counter';
+import { useSelector, useDispatch } from 'react-redux';
+// import { fetchCurrentUser } from '../context/actions'; --was working
+import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../context/authSlice'; // Adjust the path as per your project structure
+
 
 export default function App() {
 
     //for learning redux
-    return (
-        <Provider store={store}>
-            <Counter />
-        </Provider>)
+    // return (
+    // <Provider store={store}>
+    //     <Counter />
+    // </Provider>)
 
     //original
-    // const { isLoading, isLogged } = useGlobalContext();
+    // const { isLoading, isLogged } = useGlobalContext(); #old
 
-    // if (!isLoading && isLogged) {
-    //     return <Redirect href={"/home"} />
-    // }
+    // if (!isLoading && isLogged) { #old
+
+    //new
+    const dispatch = useDispatch();
+    const { isLogged, loading } = useSelector((state) => state);
+
+    useEffect(() => {
+        dispatch(fetchCurrentUser());
+    }, [dispatch]);
+
+    if (!loading && isLogged) {
+        return <Redirect href={"/home"} />
+    }
 
 
-    // return (
-    //     <SafeAreaView className="bg-primary h-full">
-    //         <ScrollView contentContainerStyle={{ height: "100%" }}>
-    //             <View className="w-full justify-center items-center min-h-[85vh] px-4">
-    //                 <Image
-    //                     source={images.logo}
-    //                     className="w-[130px] h-[84]px"
-    //                     resizeMode='contain'
-    //                 />
+    return (
+        <SafeAreaView className="bg-primary h-full">
+            <ScrollView contentContainerStyle={{ height: "100%" }}>
+                <View className="w-full justify-center items-center min-h-[85vh] px-4">
+                    <Image
+                        source={images.logo}
+                        className="w-[130px] h-[84]px"
+                        resizeMode='contain'
+                    />
 
-    //                 <Image
-    //                     source={images.cards}
-    //                     className="max-w-[380px] w-full h-[300px]"
-    //                     resizeMode='contain'
-    //                 />
-    //                 <View className="relative mt-5">
-    //                     <Text className="text-3xl text-white font-bold text-center">
-    //                         Discover Endless Possibilites with {' '}
-    //                         <Text className="text-secondary-200">
-    //                             Aora
-    //                         </Text>
-    //                     </Text>
-    //                     <Image source={images.path} className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
-    //                         resizeMode='"contain' />
-    //                 </View>
+                    <Image
+                        source={images.cards}
+                        className="max-w-[380px] w-full h-[300px]"
+                        resizeMode='contain'
+                    />
+                    <View className="relative mt-5">
+                        <Text className="text-3xl text-white font-bold text-center">
+                            Discover Endless Possibilites with {' '}
+                            <Text className="text-secondary-200">
+                                Aora
+                            </Text>
+                        </Text>
+                        <Image source={images.path} className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
+                            resizeMode='"contain' />
+                    </View>
 
-    //                 <Text className="text-sm text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journy of limitless exploration with Aora</Text>
+                    <Text className="text-sm text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journy of limitless exploration with Aora</Text>
 
-    //                 <CustomButton
-    //                     title="Continue with Email"
-    //                     handlePress={() =>  
-    //                         // signOut() }
-    //                         router.push('/sign-in')}
-    //                     containerStyle="w-full mt-7"
-    //                 />
+                    <CustomButton
+                        title="Continue with Email"
+                        handlePress={() =>
+                            // signOut() }
+                            router.push('/sign-in')}
+                        containerStyle="w-full mt-7"
+                    />
 
-    //             </View>
-    //         </ScrollView>
+                </View>
+            </ScrollView>
 
-    //         <StatusBar backgroundColor='#161622' style='light' />
-    //     </SafeAreaView>
-    // );
+            <StatusBar backgroundColor='#161622' style='light' />
+        </SafeAreaView>
+    );
 }

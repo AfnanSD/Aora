@@ -10,13 +10,20 @@ import FormField from '../../components/FormField'
 import CustomButton from "../../components/customButton";
 import { icons } from "../../constants";
 import { createVideo } from "../../lib/appwrite";
-import { useGlobalContext } from '../../context/GlobalProvider';
+// import { useGlobalContext } from '../../context/GlobalProvider';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
+
 
 
 const Create = () => {
 
-  const { user } = useGlobalContext();
+  // const { user } = useGlobalContext();
+  // const { user } = useSelector((state) => state);
 
+  const dispatch = useDispatch();
+  const { isLogged, user, loading } = useSelector((state) => state.auth);
+  
   const [form, setForm] = useState({
     title: '',
     video: null,

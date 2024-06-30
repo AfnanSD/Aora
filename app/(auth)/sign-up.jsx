@@ -6,7 +6,11 @@ import { Link, router } from "expo-router";
 import { images } from "../../constants";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/customButton'
-import { useGlobalContext } from '../../context/GlobalProvider'
+import { useSelector, useDispatch } from 'react-redux';
+// import { setIsLogged,setUser } from "../../context/actions";
+import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
+
+
 
 import { createUser } from "../../lib/appwrite";
 
@@ -17,8 +21,12 @@ const SignUp = () => {
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const {  setUser, setIsLogged } = useGlobalContext();
-  
+  // const {  setUser, setIsLogged } = useGlobalContext();
+  // const dispatch = useDispatch();
+  // const { isLogged, loading,user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const { isLogged, user, loading } = useSelector((state) => state.auth);
+
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
       Alert.alert('Error', 'Please fill in all the fields');
@@ -28,8 +36,12 @@ const SignUp = () => {
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
-      setIsLogged(true);
+      // setUser(result);
+      // setIsLogged(true);
+      // dispatch(setUser(result));
+      // dispatch(setIsLogged(true));
+      dispatch(setUser(result));
+      dispatch(setIsLogged(true));
       
       router.replace('/home');
     } catch (error) {

@@ -7,20 +7,32 @@ import EmptyState from '../../components/EmptyState'
 import { getUserPosts, signOut } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
-import { useGlobalContext } from '../../context/GlobalProvider'
+// import { useGlobalContext } from '../../context/GlobalProvider'
 import { icons } from '../../constants'
 import InfoBox from "../../components/InfoBox";
+// import { useSelector, useDispatch } from 'react-redux';
+// import { setIsLogged,setUser } from "../../context/actions";
+import { setIsLogged, setUser, setLoading, fetchCurrentUser } from '../../context/authSlice'; // Adjust the path as per your project structure
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const Profile = () => {
 
-  const { user, setUser, setIsLogged } = useGlobalContext();
+  // const { user, setUser, setIsLogged } = useGlobalContext();
+  // const dispatch = useDispatch();
+  // const { isLogged, loading,user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const { isLogged, user, loading } = useSelector((state) => state.auth);
+
   const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
 
   const logout = async () => {
     await signOut();
 
-    setUser(null);
-    setIsLogged(false);
+    // setUser(null);
+    dispatch(setUser(null));
+    dispatch(setIsLogged(false));
+    // setIsLogged(false);
 
     router.replace("/sign-in");
   }
