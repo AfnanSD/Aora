@@ -1,5 +1,3 @@
-// the old one using react context for state management
-
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { getCurrentUser } from "../lib/appwrite";
