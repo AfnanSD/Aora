@@ -10,12 +10,14 @@ import CustomButton from "../../components/customButton";
 import { icons } from "../../constants";
 import { createVideo } from "../../lib/appwrite";
 import { useSelector, useDispatch } from 'react-redux';
+import i18n from '../i18n';
 
 
 const Create = () => {
 
   const { user } = useSelector((state) => state.auth);
-  
+  const locale = useSelector((state) => state.locale);
+
   const [form, setForm] = useState({
     title: '',
     video: null,
@@ -78,23 +80,23 @@ const Create = () => {
   }
 
   return (
-    <SafeAreaView className="bg-primary h-screen">
+    <SafeAreaView className="bg-primary h-screen" key={locale}>
       <ScrollView className="px-4 my-6">
         <Text className="text-2xl text-white font-psemibold">
-          Upload Video
+          {i18n.t('UPLOAD_VIDEO_TITLE')}
         </Text>
 
         <FormField
-          title="Video Title"
+          title={i18n.t('VIDEO_TITLE')}
           value={form.title}
-          placeholder="Give your video a catchy title..."
+          placeholder={i18n.t('VIDEO_TITLE_PLACEHOLDER')}
           handleChangeText={(e) => setForm({ ...form, title: e })}
           otherStyle="mt-10"
         />
 
         <View className="mt-7 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
-            Upload Video
+            {i18n.t('UPLOAD_VIDEO')}
           </Text>
 
           <TouchableOpacity onPress={() => openPicker('video')}>
@@ -120,8 +122,8 @@ const Create = () => {
         </View>
 
         <View className="mt-7 space-y-2">
-          <Text className="text-2xl text-white font-psemibold">
-            Upload Thumbnail Image
+          <Text className=" text-base text-gray-100 font-pmedium">
+            {i18n.t('UPLOAD_THUMBNAIL_IMAGE')}
           </Text>
           <TouchableOpacity onPress={() => openPicker('image')}>
             {form.thumbnail ? (
@@ -138,7 +140,7 @@ const Create = () => {
                   className="w-5 h-5"
                 />
                 <Text className="text-sm text-gray-100 font-pmedium">
-                  Choose a file
+                  {i18n.t('UPLOAD_THUMBNAIL_IMAGE_PLACEHOLDER')}
                 </Text>
               </View>
             )
@@ -147,15 +149,15 @@ const Create = () => {
         </View>
 
         <FormField
-          title="AI prompt"
+          title={i18n.t('AI_PROMPT')}
           value={form.prompt}
-          placeholder="The prompt you used to create this video"
+          placeholder={i18n.t('AI_PROMPT_PLACEHOLDER')}
           handleChangeText={(e) => setForm({ ...form, prompt: e })}
           otherStyle="mt-7"
         />
 
         <CustomButton
-          title="Submit & Publish"
+          title={i18n.t('SUBMIT_BUTTON')}
           handlePress={submit}
           containerStyle="mt-7"
           isLoading={uploading}

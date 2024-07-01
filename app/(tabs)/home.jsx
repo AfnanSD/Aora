@@ -10,6 +10,7 @@ import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
 import { useSelector, useDispatch } from 'react-redux';
+import i18n from '../i18n';
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
 
   const [refreshing, setRefreshing] = useState(false)
   const {  user } = useSelector((state) => state.auth);
+  const locale = useSelector((state) => state.locale);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -26,7 +28,7 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView className="bg-primary h-screen">
+    <SafeAreaView className="bg-primary h-screen" key={locale}>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
@@ -42,7 +44,7 @@ const Home = () => {
             <View className="justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
+                  {i18n.t('WELCOME_BACK_MESSAGE')}
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">{user?.username}</Text>
               </View>
@@ -62,7 +64,7 @@ const Home = () => {
             {/* latest video section */}
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-gray-100 text-lg font-pregular mb-3">
-                Latest Videos
+                {i18n.t("LATEST")}
               </Text>
 
               <Trending posts={latestPosts ?? []} />
@@ -71,8 +73,8 @@ const Home = () => {
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="No  videos found"
-            subtitle="Be the first to upload a video"
+            title={i18n.t("EMPTY_STATE_TITLE")}
+            subtitle={i18n.t("EMPTY_STATE_SUBTITLE")}
           />
         )}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

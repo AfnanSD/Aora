@@ -3,7 +3,6 @@ import { Slot, SplashScreen, Stack } from 'expo-router'
 import { useFonts } from 'expo-font';
 
 import { Provider } from "react-redux";
-
 import store from '../context/store';
 const RootLayout = () => {
 
