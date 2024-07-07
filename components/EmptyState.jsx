@@ -4,6 +4,8 @@ import { router } from "expo-router";
 
 import { images } from "../constants";
 import CustomButton from "./customButton";
+import i18n from '../app/i18n';
+
 
 const EmptyState = ({ title, subtitle }) => {
     return (
@@ -20,7 +22,7 @@ const EmptyState = ({ title, subtitle }) => {
             </Text>
 
             <CustomButton
-                title="Upload video"
+                title={i18n.t('UPLOAD_VIDEO_BUTTON')}
                 handlePress={() => router.push(
                     '/create'
                 )}

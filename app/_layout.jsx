@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { Slot, SplashScreen, Stack } from 'expo-router'
 import { useFonts } from 'expo-font';
 
-import GlobalProvider from "../context/GlobalProvider";
+import { Provider } from "react-redux";
+import store from '../context/store';
 const RootLayout = () => {
 
     SplashScreen.preventAutoHideAsync();
@@ -32,14 +33,16 @@ const RootLayout = () => {
     }
 
     return (
-        <GlobalProvider>
+
+        <Provider store={store}>
             <Stack>
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
             </Stack>
-        </GlobalProvider>
+        </Provider>
+
     )
 
     // (

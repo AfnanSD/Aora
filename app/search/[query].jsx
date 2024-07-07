@@ -8,6 +8,7 @@ import { searchPosts } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
 import { useLocalSearchParams } from 'expo-router'
+import i18n from '../i18n';
 
 const Search = () => {
 
@@ -33,7 +34,7 @@ const Search = () => {
         ListHeaderComponent={() => (
           <View className="my-6 px-4">
             <Text className="font-pmedium text-sm text-gray-100">
-              Search Results
+              {i18n.t("SEARCH_RESULTS")}
             </Text>
             <Text className="text-2xl font-psemibold text-white">{query}</Text>
 
@@ -44,8 +45,8 @@ const Search = () => {
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="No  videos found"
-            subtitle="No videos found"
+            title={i18n.t("EMPTY_STATE_TITLE")}
+            subtitle={i18n.t("EMPTY_STATE_SUBTITLE")}
           />
         )}
       />

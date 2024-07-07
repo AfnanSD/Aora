@@ -2,6 +2,9 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import { Tabs, Redirect } from "expo-router";
 
 import { icons } from "../../constants";
+import i18n from '../i18n';
+import { useSelector } from 'react-redux';
+
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return <View className="items-center justify-center gap-2">
@@ -19,9 +22,12 @@ const TabIcon = ({ icon, color, name, focused }) => {
 }
 
 const TabsLayout = () => {
+  const locale = useSelector((state) => state.locale);
+
   return (
     <>
       <Tabs
+        key={locale}
         screenOptions={{
           tabBarShowLabel: false,
           tabBarActiveTintColor: '#FFA00a',
@@ -42,7 +48,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.home}
                 color={color}
-                name="Home"
+                name={i18n.t('HOME')}
                 focused={focused}
               />
             )
@@ -70,7 +76,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name="Upload"
+                name={i18n.t('UPLOAD')}
                 focused={focused}
               />
             )
@@ -84,7 +90,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={icons.profile}
                 color={color}
-                name="Profile"
+                name={i18n.t('PROFILE')}
                 focused={focused}
               />
             )
